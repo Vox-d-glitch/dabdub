@@ -13,6 +13,7 @@ import { HealthModule } from './health/health.module';
 import { SorobanModule } from './soroban/soroban.module';
 import { AuthModule } from './auth/auth.module';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+import { StellarModule } from './stellar/stellar.module';
 import { UploadModule } from './uploads/upload.module';
 import { WsModule } from './ws/ws.module';
 import { QueueModule } from './queue/queue.module';
@@ -112,6 +113,9 @@ import { ComplianceModule } from './compliance/compliance.module';
     SorobanModule,
     CronModule,
 
+    StellarModule,
+
+    // 5. Auth — register/login/refresh/logout + global JWT guard.
     // 6. Email — async transactional delivery via ZeptoMail + BullMQ.
     EmailModule,
 
