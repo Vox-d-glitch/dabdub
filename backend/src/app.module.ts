@@ -47,6 +47,7 @@ import { ReportsModule } from './reports/reports.module';
 import { WalletsModule } from './wallets/wallets.module';
 import { ApiVersionModule } from './api-version/api-version.module';
 import { DeprecationHeadersInterceptor } from './api-version/deprecation-headers.interceptor';
+import { BalanceModule } from './balance/balance.module';
 import { SentryModule as SentryUserContextModule } from './sentry/sentry.module';
 import { SentryUserMiddleware } from './sentry/sentry-user.middleware';
 import { OtpModule } from './otp/otp.module';
@@ -168,6 +169,8 @@ import { ComplianceModule } from './compliance/compliance.module';
     // Reports — async CSV data exports via BullMQ + R2.
     ReportsModule,
 
+    // Balance — unified balance aggregation with caching.
+    BalanceModule,
     // Sentry user context module
     SentryUserContextModule,
     ComplianceModule,

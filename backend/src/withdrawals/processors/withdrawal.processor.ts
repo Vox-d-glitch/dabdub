@@ -13,6 +13,7 @@ import { Withdrawal } from '../entities/withdrawal.entity';
 import { SorobanService } from '../../soroban/soroban.service';
 import { Transaction, TransactionType, TransactionStatus } from '../../transactions/entities/transaction.entity';
 import { NotificationsService } from '../../notifications/notifications.service';
+import { BalanceService } from '../../balance/balance.service';
 
 export interface ProcessWithdrawalJobData {
   withdrawalId: string;
@@ -30,6 +31,7 @@ export class WithdrawalProcessor {
     private readonly transactionRepo: Repository<Transaction>,
 
     private readonly notificationsService: NotificationsService,
+    private readonly balanceService: BalanceService,
   ) {}
 
   @Process(PROCESS_WITHDRAWAL_JOB)
@@ -74,6 +76,10 @@ export class WithdrawalProcessor {
           }),
         );
 
+      // Invalidate balance cache
+      await this.balanceService.invalidateCache(withdrawal.userId);
+
+      await this.notificationsService.notifyWithdrawalConfirmed(confirmed);
         await this.notificationsService.notifyWithdrawalConfirmed(confirmed);
 
         this.logger.log(`Withdrawal ${withdrawalId} confirmed. txHash=${txHash}`);
